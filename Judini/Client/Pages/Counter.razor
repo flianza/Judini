@@ -1,5 +1,7 @@
 ﻿@page "/counter"
 
+@attribute [Authorize]
+
 <MudContainer MaxWidth="MaxWidth.ExtraLarge">
     <MudText Typo="Typo.h3" GutterBottom="true">Counter</MudText>
     <MudText Class="mb-4">Current count: @currentCount</MudText>
