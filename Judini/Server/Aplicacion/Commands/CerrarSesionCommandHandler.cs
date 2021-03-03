@@ -4,7 +4,7 @@ using Judini.Server.Dominio;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Judini.Server.Commands
+namespace Judini.Server.Aplication.Commands
 {
     public class CerrarSesionCommandHandler : IRequestHandler<CerrarSesionCommand>
     {

@@ -2,7 +2,7 @@
 using Judini.Shared.Responses;
 using MediatR;
 
-namespace Judini.Server.Queries
+namespace Judini.Server.Aplication.Queries
 {
     public class SesionActualQuery : IRequest<SesionActualResponse>
     {

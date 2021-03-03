@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Judini.Server.Commands;
-using Judini.Server.Queries;
+using Judini.Server.Aplication.Commands;
+using Judini.Server.Aplication.Queries;
 using Judini.Shared.Requests;
 using Judini.Shared.Responses;
 using MediatR;

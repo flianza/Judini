@@ -6,7 +6,7 @@ using Judini.Shared.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Judini.Server.Queries
+namespace Judini.Server.Aplication.Queries
 {
     public class SesionActualQueryHandler : IRequestHandler<SesionActualQuery, SesionActualResponse>
     {
