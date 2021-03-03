@@ -9,6 +9,6 @@ namespace Judini.Client.Servicios
         Task IniciarSesion(IniciarSesionRequest iniciarSesionRequest);
         Task CerrarSesion();
         Task RegistrarUsuario(RegistrarUsuarioRequest registrarUsuarioRequest);
-        Task<SesionResponse> ObtenerSesion();
+        Task<SesionActualResponse> ObtenerSesion();
     }
 }

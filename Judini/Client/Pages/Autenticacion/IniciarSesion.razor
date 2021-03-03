@@ -1,0 +1,84 @@
+﻿@page "/iniciar-sesion"
+
+@using Judini.Client.Infraestructura
+
+@layout LoginLayout
+@inject NavigationManager navigationManager
+@inject IdentityAuthenticationStateProvider authStateProvider
+
+<MudForm>
+    <MudText Typo="Typo.h4" GutterBottom="true">Iniciar Sesion</MudText>
+
+    <MudTextField @bind-Value="this.Modelo.NombreDeUsuario" 
+                  Label="Usuario" 
+                  Variant="Variant.Outlined" 
+                  Class="my-4" />
+
+    <MudTextField @bind-Value="@this.Modelo.Contrasenia" 
+                  Label="Contraseña" 
+                  Variant="Variant.Outlined" 
+                  InputType="@TipoInputContrasenia" 
+                  Adornment="Adornment.End" 
+                  AdornmentIcon="@IconoContrasenia" 
+                  OnAdornmentClick="ToggleContrasenia" />
+
+    <div Class="d-flex justify-space-between align-center">
+        <MudCheckBox T="bool" 
+                     @bind-Checked="this.Modelo.Recordarme" 
+                     Label="Recordame" 
+                     Color="Color.Primary" 
+                     Class="ml-n1 my-3" />
+    </div>
+
+    <MudButton OnClick="this.OnSubmit" 
+               Variant="Variant.Filled" 
+               Color="Color.Primary" 
+               Size="Size.Large" 
+               FullWidth="true">
+        Iniciar Sesion
+    </MudButton>
+
+    @if (!string.IsNullOrWhiteSpace(this.ErrorIniciarSesion))
+    {
+        <MudAlert Severity="Severity.Error" Class="mt-8 mud-width-full" Style="max-width:500px;" Elevation="25">@this.ErrorIniciarSesion</MudAlert>
+    }
+</MudForm>
+
+@code{
+    IniciarSesionRequest Modelo { get; set; } = new IniciarSesionRequest();
+    string ErrorIniciarSesion { get; set; }
+    bool ConstraseniaVisible { get; set; }
+    InputType TipoInputContrasenia { get; set; } = InputType.Password;
+    string IconoContrasenia { get; set; } = Icons.Material.Filled.VisibilityOff;
+
+    void ToggleContrasenia()
+    {
+        if (this.ConstraseniaVisible)
+        {
+            this.IconoContrasenia = Icons.Material.Filled.VisibilityOff;
+            this.TipoInputContrasenia = InputType.Password;
+        }
+        else
+        {
+            this.IconoContrasenia = Icons.Material.Filled.Visibility;
+            this.TipoInputContrasenia = InputType.Text;
+        }
+
+        this.ConstraseniaVisible = !this.ConstraseniaVisible;
+    }
+
+    async Task OnSubmit()
+    {
+        this.ErrorIniciarSesion = null;
+        try
+        {
+            await this.authStateProvider.IniciarSesion(this.Modelo);
+
+            this.navigationManager.NavigateTo("");
+        }
+        catch (Exception ex)
+        {
+            this.ErrorIniciarSesion = ex.Message;
+        }
+    }
+}

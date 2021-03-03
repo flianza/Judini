@@ -12,7 +12,7 @@ namespace Judini.Client.Infraestructura
 {
     public class IdentityAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private SesionResponse datosSesion;
+        private SesionActualResponse datosSesion;
         private readonly IAuthApi authApi;
 
         public IdentityAuthenticationStateProvider(IAuthApi authApi)
@@ -20,21 +20,21 @@ namespace Judini.Client.Infraestructura
             this.authApi = authApi;
         }
 
-        public async Task Login(IniciarSesionRequest loginParameters)
+        public async Task IniciarSesion(IniciarSesionRequest loginParameters)
         {
             await this.authApi.IniciarSesion(loginParameters);
 
             this.NotifyAuthenticationStateChanged(this.GetAuthenticationStateAsync());
         }
 
-        public async Task Register(RegistrarUsuarioRequest registerParameters)
+        public async Task RegistrarUsuario(RegistrarUsuarioRequest registerParameters)
         {
             await this.authApi.RegistrarUsuario(registerParameters);
             
             this.NotifyAuthenticationStateChanged(this.GetAuthenticationStateAsync());
         }
 
-        public async Task Logout()
+        public async Task CerrarSesion()
         {
             await this.authApi.CerrarSesion();
             
@@ -43,7 +43,7 @@ namespace Judini.Client.Infraestructura
             this.NotifyAuthenticationStateChanged(this.GetAuthenticationStateAsync());
         }
 
-        private async Task<SesionResponse> ObtenerSesion()
+        public async Task<SesionActualResponse> ObtenerSesionActual()
         {
             if (this.datosSesion == null || !this.datosSesion.IsAuthenticated)
             {
@@ -58,7 +58,7 @@ namespace Judini.Client.Infraestructura
             var identity = new ClaimsIdentity();
             try
             {
-                var userInfo = await this.ObtenerSesion();
+                var userInfo = await this.ObtenerSesionActual();
                 if (userInfo.IsAuthenticated)
                 {
                     var claims = new[] 

@@ -21,7 +21,7 @@ namespace Judini.Server.Commands
 
         public async Task<Unit> Handle(RegistrarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            var usuario = new Usuario(request.NombreDeUsuario);
+            var usuario = new Usuario(request.NombreDeUsuario, request.Nombre, request.Apellido, request.Email);
 
             var resultadoCrearUsuario = await this.userManager.CreateAsync(usuario, request.Contrasenia);
             

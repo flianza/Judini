@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Judini.Server.Commands;
+using Judini.Server.Queries;
 using Judini.Shared.Requests;
 using Judini.Shared.Responses;
 using MediatR;
@@ -35,7 +35,7 @@ namespace Judini.Server.Controllers
         [Route("registrar")]
         public async Task<IActionResult> PostRegistrar(RegistrarUsuarioRequest request)
         {
-            var command = new RegistrarUsuarioCommand(request.NombreDeUsuario, request.Contrasenia);
+            var command = new RegistrarUsuarioCommand(request.NombreDeUsuario, request.Contrasenia, request.Nombre, request.Apellido, request.Email);
 
             await this.mediator.Send(command);
 
@@ -56,14 +56,13 @@ namespace Judini.Server.Controllers
 
         [HttpGet]
         [Route("sesion")]
-        public SesionResponse GetSesion()
+        public async Task<ActionResult<SesionActualResponse>> GetSesionActual()
         {
-            return new SesionResponse
-            {
-                IsAuthenticated = this.User.Identity.IsAuthenticated,
-                UserName = this.User.Identity.Name,
-                Claims = this.User.Claims.ToDictionary(c => c.Type, c => c.Value)
-            };
+            var query = new SesionActualQuery(this.User);
+
+            var response = await this.mediator.Send(query);
+
+            return this.Ok(response);
         }
     }
 }

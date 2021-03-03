@@ -47,9 +47,9 @@ namespace Judini.Client.Servicios
             resultado.EnsureSuccessStatusCode();
         }
 
-        public async Task<SesionResponse> ObtenerSesion()
+        public async Task<SesionActualResponse> ObtenerSesion()
         {
-            return await this.httpClient.GetFromJsonAsync<SesionResponse>("api/auth/sesion");
+            return await this.httpClient.GetFromJsonAsync<SesionActualResponse>("api/auth/sesion");
         }
     }
 }

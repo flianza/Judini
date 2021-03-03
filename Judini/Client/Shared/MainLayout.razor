@@ -1,29 +1,45 @@
 ﻿@inherits LayoutComponentBase
 
+@using Judini.Client.Infraestructura
+
+@inject NavigationManager navigationManager
+@inject IdentityAuthenticationStateProvider authStateProvider
+
 <MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => this.ToggleMenu())" />
         <MudAppBarSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.PowerSettingsNew" Color="Color.Inherit" Edge="Edge.End" OnClick="@(() => this.CerrarSesion())" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
+    <MudDrawer @bind-Open="menuAbierto" Elevation="2">
         <MudDrawerHeader>
-            <MudText Typo="Typo.h5" Class="mt-1">Application</MudText>
+            <MudText Typo="Typo.h5" Class="mt-1">Judini</MudText>
         </MudDrawerHeader>
         <NavMenu></NavMenu>
     </MudDrawer>
     <MudMainContent>
-        @Body
+        <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+            @Body
+        </MudContainer>
     </MudMainContent>
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
+    bool menuAbierto = true;
 
-    void DrawerToggle()
+    void ToggleMenu()
     {
-        _drawerOpen = !_drawerOpen;
+        this.menuAbierto = !this.menuAbierto;
+    }
+
+    async Task CerrarSesion()
+    {
+        await this.authStateProvider.CerrarSesion();
+
+        this.navigationManager.NavigateTo("iniciar-sesion");
     }
 }

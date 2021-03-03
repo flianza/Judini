@@ -44,7 +44,7 @@ namespace Judini.Server
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
             });
 
             services.ConfigureApplicationCookie(options =>
