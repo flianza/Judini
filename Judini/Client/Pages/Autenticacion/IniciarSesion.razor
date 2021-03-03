@@ -6,7 +6,7 @@
 @inject NavigationManager navigationManager
 @inject IdentityAuthenticationStateProvider authStateProvider
 
-<MudForm>
+<EditForm Model="@this.Modelo" OnValidSubmit="this.OnSubmit">
     <MudText Typo="Typo.h4" GutterBottom="true">Iniciar Sesion</MudText>
 
     <MudTextField @bind-Value="this.Modelo.NombreDeUsuario" 
@@ -30,11 +30,11 @@
                      Class="ml-n1 my-3" />
     </div>
 
-    <MudButton OnClick="this.OnSubmit" 
-               Variant="Variant.Filled" 
+    <MudButton Variant="Variant.Filled" 
                Color="Color.Primary" 
                Size="Size.Large" 
-               FullWidth="true">
+               FullWidth="true"
+               ButtonType="ButtonType.Submit">
         Iniciar Sesion
     </MudButton>
 
@@ -42,7 +42,7 @@
     {
         <MudAlert Severity="Severity.Error" Class="mt-8 mud-width-full" Style="max-width:500px;" Elevation="25">@this.ErrorIniciarSesion</MudAlert>
     }
-</MudForm>
+</EditForm>
 
 @code{
     IniciarSesionRequest Modelo { get; set; } = new IniciarSesionRequest();
