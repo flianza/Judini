@@ -1,0 +1,87 @@
+﻿@page "/clientes/agregar"
+
+@attribute [Authorize]
+
+@using System.Text.Json
+@using Microsoft.Extensions.Logging
+@using Judini.Shared.Clientes
+
+@inject ILogger<AgregarCliente> logger
+
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Agregar Cliente</MudText>
+
+<MudForm @ref="this.form" @bind-IsValid="this.formularioValido">
+    <MudCard>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem sm="12" md="3" Class="d-flex justify-center align-center">
+                    <MudAvatar Style="height:100px; width:100px;">
+                        <MudIcon Icon="@Icons.Material.Outlined.SentimentVeryDissatisfied" Size="Size.Large"></MudIcon>
+                    </MudAvatar>
+                </MudItem>
+                <MudItem sm="12" md="9">
+                    <MudGrid>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="string"
+                                          Label="Nombre"
+                                          Variant="Variant.Outlined"
+                                          @bind-Value="this.modelo.Nombre"
+                                          Required="true"
+                                          RequiredError="Nombre es requerido" />
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="string"
+                                          Label="Apellido"
+                                          Variant="Variant.Outlined"
+                                          @bind-Value="this.modelo.Apellido"
+                                          Required="true"
+                                          RequiredError="Apellido es requerido" />
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="string"
+                                          Label="Email"
+                                          Variant="Variant.Outlined"
+                                          @bind-Value="this.modelo.Email"
+                                          InputType="InputType.Email"
+                                          Required="true"
+                                          RequiredError="Email es requerido" />
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="string"
+                                          Label="Telefono"
+                                          Variant="Variant.Outlined"
+                                          @bind-Value="this.modelo.Telefono"
+                                          Required="true"
+                                          RequiredError="Telefono es requerido" />
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            </MudGrid>
+
+        </MudCardContent>
+        <MudCardActions Class="pb-4 pl-4">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Disabled="!this.formularioValido"
+                       OnClick="this.OnSubmit"
+                       Class="ml-auto">
+                Agregar
+            </MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudForm>
+
+@code {
+
+    MudForm form;
+    ClienteDto modelo = new ClienteDto();
+    bool formularioValido;
+
+    Task OnSubmit()
+    {
+        this.logger.LogInformation(JsonSerializer.Serialize(this.modelo));
+
+        return Task.CompletedTask;
+    }
+
+}
