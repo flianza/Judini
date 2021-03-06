@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Judini.Server.Datos;
 using Judini.Server.Dominio;
+using Judini.Server.Infraestructura;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,22 +11,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MediatR;
 using Microsoft.OpenApi.Models;
 
 namespace Judini.Server
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+
             services.AddDbContext<ContextoBd>(options =>
               options.UseSqlite("Filename=data.db"));
 
@@ -59,7 +62,11 @@ namespace Judini.Server
 
             services.AddMediatR(typeof(Startup));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(opt =>
+            {
+                opt.Filters.Add(typeof(RequestEnableBufferingFilter));
+                opt.Filters.Add(typeof(ExceptionFilter));
+            });
             services.AddRazorPages();
 
             services.AddSwaggerGen(c =>
@@ -68,7 +75,6 @@ namespace Judini.Server
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())

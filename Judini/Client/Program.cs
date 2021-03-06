@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BlazorApplicationInsights;
 using Judini.Client.Infraestructura;
 using Judini.Client.Servicios;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -19,6 +20,7 @@ namespace Judini.Client
 
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddBlazorApplicationInsights();
             builder.Services.AddScoped<IdentityAuthenticationStateProvider>();
             builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<IdentityAuthenticationStateProvider>());
             builder.Services.AddScoped<IAuthApi, AuthApi>();
