@@ -19,7 +19,7 @@ namespace Judini.Client.Temas
 
             this.LayoutProperties = new LayoutProperties()
             {
-                DefaultBorderRadius = "3px"
+                DefaultBorderRadius = "5px",
             };
 
             this.Typography = new Typography()

@@ -3,7 +3,7 @@
 @attribute [Authorize]
 
 @using System.Text.Json
-@using Microsoft.Extensions.Logging
+@using System.Globalization
 @using Judini.Shared.Clientes
 
 @inject ILogger<AgregarCliente> logger
@@ -11,20 +11,40 @@
 <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Agregar Cliente</MudText>
 
 <MudForm @ref="this.form" @bind-IsValid="this.formularioValido">
-    <MudCard>
-        <MudCardContent>
-            <MudGrid>
-                <MudItem sm="12" md="3" Class="d-flex justify-center align-center">
+    <MudGrid>
+        <MudItem xs="12" md="3">
+            <MudCard Style="height: 100%">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Imagen del Cliente</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent Class="d-flex justify-center align-center">
                     <MudAvatar Style="height:100px; width:100px;">
                         <MudIcon Icon="@Icons.Material.Outlined.SentimentVeryDissatisfied" Size="Size.Large"></MudIcon>
                     </MudAvatar>
-                </MudItem>
-                <MudItem sm="12" md="9">
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" md="9">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Datos del Cliente</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
                     <MudGrid>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="long?"
+                                          Label="DNI"
+                                          @bind-Value="this.modelo.Dni"
+                                          Required="true"
+                                          RequiredError="DNI es requerido" />
+                        </MudItem>
                         <MudItem xs="12" md="4">
                             <MudTextField T="string"
                                           Label="Nombre"
-                                          Variant="Variant.Outlined"
                                           @bind-Value="this.modelo.Nombre"
                                           Required="true"
                                           RequiredError="Nombre es requerido" />
@@ -32,43 +52,100 @@
                         <MudItem xs="12" md="4">
                             <MudTextField T="string"
                                           Label="Apellido"
-                                          Variant="Variant.Outlined"
                                           @bind-Value="this.modelo.Apellido"
                                           Required="true"
                                           RequiredError="Apellido es requerido" />
                         </MudItem>
+                    </MudGrid>
+                    <MudGrid>
                         <MudItem xs="12" md="4">
-                            <MudTextField T="string"
-                                          Label="Email"
-                                          Variant="Variant.Outlined"
-                                          @bind-Value="this.modelo.Email"
-                                          InputType="InputType.Email"
-                                          Required="true"
-                                          RequiredError="Email es requerido" />
+                            <MudDatePicker Label="Fecha de Nacimiento"
+                                           @bind-Date="this.modelo.FechaDeNacimiento"
+                                           Editable="true"
+                                           MaxDate="DateTime.Today"
+                                           Culture="@CultureInfo.GetCultureInfo("es-AR")"
+                                           OpenTo="OpenTo.Year"
+                                           DateFormat="dd/MM/yyyy"
+                                           Required="true"
+                                           RequiredError="Fecha de Nacimiento es requerido">
+                            </MudDatePicker>
                         </MudItem>
-                        <MudItem xs="12" md="4">
+                        <MudItem xs="5" md="2">
+                            <MudTextField T="string"
+                                          Label="Cod. Area"
+                                          @bind-Value="this.modelo.CodigoArea"
+                                          Adornment="Adornment.Start"
+                                          AdornmentText="0"
+                                          Required="true"
+                                          RequiredError="Cod. Area es requerido" />
+                        </MudItem>
+                        <MudItem xs="7" md="3">
                             <MudTextField T="string"
                                           Label="Telefono"
-                                          Variant="Variant.Outlined"
                                           @bind-Value="this.modelo.Telefono"
+                                          Adornment="Adornment.Start"
+                                          AdornmentText="15"
                                           Required="true"
                                           RequiredError="Telefono es requerido" />
                         </MudItem>
                     </MudGrid>
-                </MudItem>
-            </MudGrid>
-
-        </MudCardContent>
-        <MudCardActions Class="pb-4 pl-4">
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       Disabled="!this.formularioValido"
-                       OnClick="this.OnSubmit"
-                       Class="ml-auto">
-                Agregar
-            </MudButton>
-        </MudCardActions>
-    </MudCard>
+                    <MudGrid>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="string"
+                                          Label="Calle"
+                                          @bind-Value="this.modelo.Calle"
+                                          Required="true"
+                                          RequiredError="Calle es requerido" />
+                        </MudItem>
+                        <MudItem xs="8" md="2">
+                            <MudTextField T="string"
+                                          Label="Nro"
+                                          @bind-Value="this.modelo.NumeroCalle"
+                                          Required="true"
+                                          RequiredError="Nro es requerido" />
+                        </MudItem>
+                        <MudItem xs="4" md="2">
+                            <MudTextField T="string"
+                                          Label="Depto"
+                                          @bind-Value="this.modelo.Departamento" />
+                        </MudItem>
+                        <MudItem xs="12" md="4">
+                            <MudTextField T="string"
+                                          Label="Ciudad"
+                                          @bind-Value="this.modelo.Ciudad"
+                                          Required="true"
+                                          RequiredError="Ciudad es requerida" />
+                        </MudItem>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem xs="12" md="6">
+                            <MudTextField T="string"
+                                          Label="Email"
+                                          @bind-Value="this.modelo.Email"
+                                          InputType="InputType.Email" />
+                        </MudItem>
+                    </MudGrid>
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTextField T="string"
+                                          Label="Observaciones"
+                                          @bind-Value="this.modelo.Observaciones"
+                                          Lines="4" />
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+                <MudCardActions Class="pb-4 pl-4">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Disabled="!this.formularioValido"
+                               OnClick="this.OnSubmit"
+                               Class="ml-auto">
+                        Agregar
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 </MudForm>
 
 @code {

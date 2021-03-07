@@ -1,0 +1,20 @@
+﻿@using Judini.Client.Modelos
+
+@foreach (var item in this.Items)
+{
+    @if (!item.Hijos.Any())
+    {
+        <MudNavLink Href="@item.Ruta" Match="@item.Match" Icon="@item.Icono">@item.Nombre</MudNavLink>
+    }
+    else
+    {
+        <MudNavGroup Title="@item.Nombre" Icon="@item.Icono">
+            <RecursiveMenu Items="item.Hijos"></RecursiveMenu>
+        </MudNavGroup>
+    }
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<MenuItem> Items { get; set; }
+}

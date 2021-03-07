@@ -1,11 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
 @using Judini.Client.Infraestructura
+@using Judini.Client.Temas
+@using Judini.Client.Servicios
 
 @inject NavigationManager navigationManager
 @inject IdentityAuthenticationStateProvider authStateProvider
+@inject IMenuService menuService
+@inject ILogger<MainLayout> logger
 
-<MudThemeProvider />
+<MudThemeProvider Theme="this.tema" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -23,13 +27,52 @@
     </MudDrawer>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+            <MudHidden Breakpoint="Breakpoint.SmAndDown">
+                <MudToolBar DisableGutters="true">
+                    <MudBreadcrumbs Items="this.items"></MudBreadcrumbs>
+                </MudToolBar>
+            </MudHidden>
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
 
+<style>
+    .mud-breadcrumbs {
+        padding: 16px 0px;
+    }
+</style>
+
 @code {
     bool menuAbierto = true;
+    TemaJudini tema = new TemaJudini();
+    List<BreadcrumbItem> items = new List<BreadcrumbItem>();
+
+    protected override void OnInitialized()
+    {
+        this.navigationManager.LocationChanged += this.HandleLocationChanged;
+    }
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        this.ActualizarBreadcrumb();
+    }
+
+    private void ActualizarBreadcrumb()
+    {
+        var routeView = this.Body.Target as RouteView;
+
+        if (routeView != null)
+        {
+            var paginaActual = routeView.RouteData.PageType;
+
+            var menuItems = this.menuService.ObtenerCamino(paginaActual);
+
+            this.items = menuItems.Select(i => new BreadcrumbItem(i.Nombre, i.Ruta, i == menuItems.Last())).ToList();
+
+            this.StateHasChanged();
+        }
+    }
 
     void ToggleMenu()
     {
