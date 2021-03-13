@@ -1,6 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Judini.Server.Datos;
+using Judini.Server.AccesoDatos;
 using Judini.Server.Dominio;
 using Judini.Server.Infraestructura;
 using MediatR;
@@ -72,6 +73,13 @@ namespace Judini.Server
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp1", Version = "v1" });
+            });
+
+            services.Scan(scan =>
+            {
+                scan.FromCallingAssembly()
+                    .AddClasses(classes => classes.Where(type => !type.Name.Contains("Command") || !type.Name.Contains("Query")))
+                    .AsMatchingInterface();
             });
         }
 

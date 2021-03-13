@@ -9,14 +9,61 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Judini.Server.Migrations
 {
     [DbContext(typeof(ContextoBd))]
-    [Migration("20210301222859_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210313140043_cliente")]
+    partial class cliente
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.3");
+                .HasAnnotation("ProductVersion", "5.0.4");
+
+            modelBuilder.Entity("Judini.Server.Dominio.Clientes.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Apellido")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Calle")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Ciudad")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CodigoArea")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Departamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("Dni")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaDeNacimiento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NumeroCalle")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Observaciones")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clientes");
+                });
 
             modelBuilder.Entity("Judini.Server.Dominio.Usuario", b =>
                 {
@@ -26,6 +73,9 @@ namespace Judini.Server.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Apellido")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -42,6 +92,9 @@ namespace Judini.Server.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")

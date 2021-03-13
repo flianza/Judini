@@ -2,11 +2,12 @@
 
 @attribute [Authorize]
 
-@using System.Text.Json
 @using System.Globalization
 @using Judini.Shared.Clientes
+@using Judini.Client.Servicios.Clientes.Contratos
 
 @inject ILogger<Agregar> logger
+@inject IClientesApi clientesApi
 
 <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Agregar Cliente</MudText>
 
@@ -148,17 +149,46 @@
     </MudGrid>
 </MudForm>
 
+@using Radzen.Blazor
+<RadzenScheduler @ref=@scheduler style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
+                 TextProperty="Text" SelectedIndex="2">
+    <RadzenDayView />
+    <RadzenWeekView />
+    <RadzenMonthView />
+</RadzenScheduler>
+
 @code {
 
     MudForm form;
     ClienteDto modelo = new ClienteDto();
     bool formularioValido;
 
-    Task OnSubmit()
+    public class Appointment
     {
-        this.logger.LogInformation(JsonSerializer.Serialize(this.modelo));
-
-        return Task.CompletedTask;
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public string Text { get; set; }
     }
 
+    RadzenScheduler<Appointment> scheduler;
+    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+
+    IList<Appointment> appointments = new List<Appointment>
+    {
+        new Appointment { Start = DateTime.Today.AddDays(-2), End = DateTime.Today.AddDays(-2), Text = "Birthday" },
+        new Appointment { Start = DateTime.Today.AddDays(-11), End = DateTime.Today.AddDays(-10), Text = "Day off" },
+        new Appointment { Start = DateTime.Today.AddDays(-10), End = DateTime.Today.AddDays(-8), Text = "Work from home" },
+        new Appointment { Start = DateTime.Today.AddHours(10), End = DateTime.Today.AddHours(12), Text = "Online meeting" },
+        new Appointment { Start = DateTime.Today.AddHours(10), End = DateTime.Today.AddHours(13), Text = "Skype call" },
+        new Appointment { Start = DateTime.Today.AddHours(14), End = DateTime.Today.AddHours(14).AddMinutes(30), Text = "Dentist appointment" },
+        new Appointment { Start = DateTime.Today.AddDays(1), End = DateTime.Today.AddDays(12), Text = "Vacation" },
+    };
+
+    async Task OnSubmit()
+    {
+        await this.clientesApi.Crear(new CrearClienteRequest() { Cliente = this.modelo });
+
+        this.modelo = new ClienteDto();
+        this.form.Reset();
+    }
 }
