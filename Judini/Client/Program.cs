@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Judini.Client.Infraestructura;
@@ -24,13 +25,16 @@ namespace Judini.Client
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<IdentityAuthenticationStateProvider>();
             builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<IdentityAuthenticationStateProvider>());
-            builder.Services.AddScoped<IAuthApi, AuthApi>();
-            builder.Services.AddScoped<IMenuService, MenuService>();
-            builder.Services.AddScoped<IClientesApi, ClientesApi>();
-
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddMudServices();
+            
+            builder.Services.Scan(scan =>
+            {
+                scan.FromCallingAssembly()
+                    .AddClasses()
+                    .AsMatchingInterface();
+            });
 
+            builder.Services.AddMudServices();
             builder.Services.AddScoped<DialogService>();
 
             await builder.Build().RunAsync();

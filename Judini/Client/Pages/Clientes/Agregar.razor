@@ -13,21 +13,7 @@
 
 <MudForm @ref="this.form" @bind-IsValid="this.formularioValido">
     <MudGrid>
-        <MudItem xs="12" md="3">
-            <MudCard Style="height: 100%">
-                <MudCardHeader>
-                    <CardHeaderContent>
-                        <MudText Typo="Typo.h6">Imagen del Cliente</MudText>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent Class="d-flex justify-center align-center">
-                    <MudAvatar Style="height:100px; width:100px;">
-                        <MudIcon Icon="@Icons.Material.Outlined.SentimentVeryDissatisfied" Size="Size.Large"></MudIcon>
-                    </MudAvatar>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" md="9">
+        <MudItem xs="12" md="6">
             <MudCard>
                 <MudCardHeader>
                     <CardHeaderContent>
@@ -146,16 +132,17 @@
                 </MudCardActions>
             </MudCard>
         </MudItem>
+        <MudItem xs="12" md="6">
+            <RadzenScheduler Style="height: 100%" @ref=@scheduler TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
+                             TextProperty="Text" SelectedIndex="1">
+                <RadzenDayView />
+                <RadzenWeekView />
+                <RadzenMonthView />
+            </RadzenScheduler>
+        </MudItem>
     </MudGrid>
 </MudForm>
 
-@using Radzen.Blazor
-<RadzenScheduler @ref=@scheduler style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="Start" EndProperty="End"
-                 TextProperty="Text" SelectedIndex="2">
-    <RadzenDayView />
-    <RadzenWeekView />
-    <RadzenMonthView />
-</RadzenScheduler>
 
 @code {
 
@@ -171,7 +158,6 @@
     }
 
     RadzenScheduler<Appointment> scheduler;
-    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
 
     IList<Appointment> appointments = new List<Appointment>
     {
