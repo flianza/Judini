@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components.Routing;
 
-namespace Judini.Client.Modelos
+namespace Judini.Client.Modelos.Menu
 {
-    public class MenuItem
+    public class Item
     {
         public string Ruta { get; set; }
         public NavLinkMatch Match { get; set; }
+        public bool EsSeccion { get; set; }
         public string Nombre { get; set; }
         public string Icono { get; set; }
-        public IEnumerable<MenuItem> Hijos { get; set; } = Array.Empty<MenuItem>();
+        public IEnumerable<Item> Hijos { get; set; } = Array.Empty<Item>();
+        public Type Pagina { get; set; }
     }
 }

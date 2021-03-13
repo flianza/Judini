@@ -68,6 +68,11 @@
 
             var menuItems = this.menuService.ObtenerCamino(paginaActual);
 
+            foreach(var item in menuItems)
+            {
+                Console.WriteLine(item.Nombre);
+            }
+
             this.items = menuItems.Select(i => new BreadcrumbItem(i.Nombre, i.Ruta, i == menuItems.Last())).ToList();
 
             this.StateHasChanged();

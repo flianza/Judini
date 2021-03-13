@@ -1,4 +1,4 @@
-﻿@using Judini.Client.Modelos
+﻿@using Judini.Client.Modelos.Menu
 
 @foreach (var item in this.Items)
 {
@@ -8,13 +8,21 @@
     }
     else
     {
-        <MudNavGroup Title="@item.Nombre" Icon="@item.Icono">
+        if (item.EsSeccion)
+        {
+            <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">@item.Nombre</MudText>
             <RecursiveMenu Items="item.Hijos"></RecursiveMenu>
-        </MudNavGroup>
+        }
+        else
+        {
+            <MudNavGroup Title="@item.Nombre" Icon="@item.Icono">
+                <RecursiveMenu Items="item.Hijos"></RecursiveMenu>
+            </MudNavGroup>
+        }
     }
 }
 
 @code {
     [Parameter]
-    public IEnumerable<MenuItem> Items { get; set; }
+    public IEnumerable<Item> Items { get; set; }
 }

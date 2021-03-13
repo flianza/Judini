@@ -1,5 +1,5 @@
 ﻿@using Judini.Client.Servicios
-@using Judini.Client.Modelos
+@using Judini.Client.Modelos.Menu
 
 @inject IMenuService menuService
 
@@ -7,12 +7,11 @@
 <MudDivider Class="mb-4" />
 
 <MudNavMenu>
-    <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">Personal</MudText>
     <RecursiveMenu Items="this.items"></RecursiveMenu>
 </MudNavMenu>
 
 @code {
-    IEnumerable<MenuItem> items;
+    IEnumerable<Item> items;
 
     protected override void OnInitialized()
     {
