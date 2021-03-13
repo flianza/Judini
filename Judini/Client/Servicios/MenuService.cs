@@ -34,7 +34,7 @@ namespace Judini.Client.Servicios
 
         public IEnumerable<Item> ObtenerCamino(Type paginaActual)
         {
-            return this.BuscarEnItems(paginaActual, this.Items).Reverse();
+            return this.BuscarEnItems(paginaActual, this.Items);
         }
 
         private IEnumerable<Item> BuscarEnItems(Type paginaABuscar, IEnumerable<Item> itemsABuscar)
@@ -51,11 +51,11 @@ namespace Judini.Client.Servicios
 
                     if (camino.Any())
                     {
+                        yield return item;
                         foreach (var itemEnCamino in camino)
                         {
                             yield return itemEnCamino;
                         }
-                        yield return item;
                     }
                 }
             }
