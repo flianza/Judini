@@ -3,9 +3,6 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Judini.Client.Infraestructura;
-using Judini.Client.Servicios;
-using Judini.Client.Servicios.Clientes.Contratos;
-using Judini.Client.Servicios.Clientes.Implementacioens;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +33,11 @@ namespace Judini.Client
 
             builder.Services.AddMudServices();
             builder.Services.AddScoped<DialogService>();
+
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("es-AR");
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("es-AR");
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CurrentCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CurrentUICulture;
 
             await builder.Build().RunAsync();
         }

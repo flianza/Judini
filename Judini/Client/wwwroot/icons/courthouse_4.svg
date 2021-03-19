@@ -1,62 +1,11 @@
-﻿<!DOCTYPE html>
-<html>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0"
+  xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Judini</title>
-    <base href="/" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="_content/Radzen.Blazor/css/default.css" rel="stylesheet" />
-    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
-</head>
-
-<body>
-    <div id="app">
-        <style>
-            @keyframes slide {
-                0% {
-                    transform: translateX(-25%);
-                }
-
-                100% {
-                    transform: translateX(25%);
-                }
-            }
-
-            .mud-wasm {
-                animation: slide 3s ease-in-out infinite alternate;
-                background-image: linear-gradient(-60deg, #594ae2 50%, #7467ef 50%);
-                bottom: 0;
-                left: -50%;
-                opacity: .5;
-                position: fixed;
-                right: -50%;
-                top: 0;
-                z-index: -1
-            }
-
-            .mud-wasm-cont {
-                left: 50%;
-                padding: 10vmin;
-                position: fixed;
-                text-align: center;
-                top: 50%;
-                transform: translate(-50%, -50%)
-            }
-        </style>
-        <div style="height:100%; width:100%; margin:0; position:fixed;">
-            <div class="mud-wasm"></div>
-            <div class="mud-wasm" style="animation-direction:alternate-reverse;animation-duration:4s;"></div>
-            <div class="mud-wasm" style="animation-duration:5s;"></div>
-            <div class="mud-wasm-cont ">
-                <svg version="1.0" style="height:100%; width:100%;" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
-
-                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M2455 5103 c-28 -10 -66 -29 -85 -43 -79 -56 -2158 -1655 -2189
+  <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+    <path d="M2455 5103 c-28 -10 -66 -29 -85 -43 -79 -56 -2158 -1655 -2189
 -1684 -86 -79 -94 -206 -18 -293 51 -58 95 -73 219 -73 l108 0 -7 -45 c-9 -69
 13 -131 67 -187 28 -29 58 -50 78 -54 l32 -6 0 -102 c0 -118 14 -146 73 -146
 62 0 77 29 77 149 l0 91 235 0 235 0 0 -740 0 -740 -235 0 -235 0 0 486 c0
@@ -97,21 +46,11 @@ l-24 -25 -366 0 -366 0 -24 25 c-14 13 -25 36 -25 50 0 14 11 37 25 50 l24 25
 20 355 0 367 -1 388 -20z m1517 -5 c14 -13 25 -36 25 -50 0 -14 -11 -37 -25
 -50 l-24 -25 -366 0 -366 0 -24 25 c-14 13 -25 36 -25 50 0 14 11 37 25 50
 l24 25 366 0 366 0 24 -25z m275 -360 l0 -85 -2180 0 -2180 0 0 85 0 85 2180
-0 2180 0 0 -85z" />
-                        <path d="M1655 4135 c-484 -372 -890 -686 -902 -698 -33 -29 -31 -79 3 -106
+0 2180 0 0 -85z"/>
+    <path d="M1655 4135 c-484 -372 -890 -686 -902 -698 -33 -29 -31 -79 3 -106
 l27 -21 1777 0 1777 0 27 21 c36 28 36 76 -1 111 -16 14 -419 326 -898 694
 -624 479 -878 669 -900 672 -26 3 -134 -77 -910 -673z m1671 -82 l764 -588
 -765 -3 c-421 -1 -1109 -1 -1530 0 l-764 3 762 587 c419 323 764 587 765 587
-2 1 348 -263 768 -586z" />
-                    </g>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
-    <script src="_framework/blazor.webassembly.js"></script>
-</body>
-
-</html>
+2 1 348 -263 768 -586z"/>
+  </g>
+</svg>

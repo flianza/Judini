@@ -1,0 +1,95 @@
+﻿@page "/turnos/agendar"
+
+@using System.Globalization
+@using Judini.Client.Modelos.Turnos
+@using Judini.Shared.Enums
+@using Judini.Shared.Turnos
+
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Agendar</MudText>
+
+<MudGrid>
+    <MudItem xs="12" md="5">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Nuevo Turno</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudForm @ref="this.form">
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTextField T="string"
+                                          Label="Nombre"
+                                          @bind-Value="this.modelo.Nombre"
+                                          Required="true"
+                                          RequiredError="Nombre es requerido" />
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudDatePicker Label="Fecha"
+                                           @bind-Date="this.modelo.Fecha"
+                                           Editable="true"
+                                           MinDate="DateTime.Today"
+                                           DateFormat="dd/MM/yyyy"
+                                           Required="true"
+                                           RequiredError="Fecha es requerido">
+                            </MudDatePicker>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudTimePicker Label="Hora"
+                                           @bind-Time="this.modelo.Hora"
+                                           Editable="true"
+                                           Required="true"
+                                           RequiredError="Hora es requerido">
+                            </MudTimePicker>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudSelect Label="Duracion" 
+                                       @bind-Value="this.modelo.DuracionEnMinutos" 
+                                       Required="true" 
+                                       RequiredError="Duracion es requerido"
+                                       T="int?">
+                                <MudSelectItem Value="(int?)15">15 min.</MudSelectItem>
+                                <MudSelectItem Value="(int?)30">30 min.</MudSelectItem>
+                                <MudSelectItem Value="(int?)45">45 min.</MudSelectItem>
+                                <MudSelectItem Value="(int?)60">60 min.</MudSelectItem>
+                            </MudSelect>
+                        </MudItem>
+                    </MudGrid>
+                </MudForm>
+            </MudCardContent>
+            <MudCardActions Class="pb-4 pl-4">
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           OnClick="this.AgregarTurno"
+                           Class="ml-auto">
+                    Agregar
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="12" md="7">
+        <Scheduler @ref="this.scheduler" Modo="ModoScheduler.Semana" Fecha="this.modelo.Fecha"></Scheduler>
+    </MudItem>
+</MudGrid>
+
+@code {
+    MudForm form;
+    CrearTurno modelo = new();
+    Scheduler scheduler;
+
+    async Task AgregarTurno()
+    {
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(this.modelo));
+
+        await this.scheduler.AgregarTurnoAsync(new Turno
+        {
+            Inicio = this.modelo.Inicio,
+            Fin = this.modelo.Fin,
+            Nombre = this.modelo.Nombre
+        });
+
+        this.modelo = new();
+        this.form.Reset();
+    }
+}

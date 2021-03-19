@@ -22,11 +22,12 @@ namespace Judini.Client.Servicios
                     new Agrupador("Clientes", Icons.Material.Outlined.Person, new List<Item> 
                     {
                         new Link("Agregar", "/clientes/agregar", NavLinkMatch.Prefix, Icons.Material.Filled.PersonAdd, typeof(Pages.Clientes.Agregar)),
-                    }),
-                    new Agrupador("Turnos", Icons.Material.Outlined.CalendarViewDay, new List<Item>
-                    {
-                        new Link("Agenda", "/turnos/agenda", NavLinkMatch.Prefix, Icons.Material.Filled.CalendarToday, typeof(Pages.Turnos.Agenda)),
                     })
+                }),
+                new Seccion("Turnos", new List<Item> 
+                {
+                    new Link("Agendar", "/turnos/agendar", NavLinkMatch.Prefix, Icons.Material.Filled.PermContactCalendar, typeof(Pages.Turnos.Agendar)),
+                    new Link("Todos", "/turnos/todos", NavLinkMatch.Prefix, Icons.Material.Filled.CalendarToday, typeof(Pages.Turnos.Todos)),
                 })
             };
         }

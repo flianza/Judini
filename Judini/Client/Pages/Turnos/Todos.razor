@@ -1,0 +1,24 @@
+﻿@page "/turnos/todos"
+
+@using Judini.Shared.Enums
+
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Agenda</MudText>
+
+<MudGrid>
+    <MudItem xs="12" md="9">
+        <Scheduler Modo="ModoScheduler.Mes"></Scheduler>
+    </MudItem>
+    <MudItem xs="12" md="3">
+        <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
+            <MudIcon Icon="@Icons.Material.Filled.Euro" Color="Color.Primary" Class="mx-4" Style="width:54px; height:54px;"></MudIcon>
+            <div>
+                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Total Income</MudText>
+                <MudText Typo="Typo.h5">125,000</MudText>
+            </div>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+}
