@@ -17,8 +17,6 @@ namespace Judini.Client.Servicios
                 new Seccion("Personal", new List<Item>
                 {
                     new Link("Home", "", NavLinkMatch.All, Icons.Material.Filled.Home, typeof(Pages.Index)),
-                    new Link("Counter", "/counter", NavLinkMatch.Prefix, Icons.Material.Filled.Add, typeof(Pages.Counter)),
-                    new Link("Fetch data", "/fetchdata", NavLinkMatch.Prefix, Icons.Material.Filled.List, typeof(Pages.FetchData)),
                     new Agrupador("Clientes", Icons.Material.Outlined.Person, new List<Item> 
                     {
                         new Link("Agregar", "/clientes/agregar", NavLinkMatch.Prefix, Icons.Material.Filled.PersonAdd, typeof(Pages.Clientes.Agregar)),
