@@ -7,7 +7,7 @@
 @inject ITurnosApi turnosApi
 
 <RadzenScheduler @ref=@scheduler TItem="Turno"
-                 Data=@turnos SelectedIndex="@selectedIndex"
+                 Data=@Turnos SelectedIndex="@selectedIndex"
                  StartProperty="Inicio" EndProperty="Fin" TextProperty="Nombre"
                  TodayText="Hoy">
     <RadzenDayView StartTime="horaInicio" EndTime="horaFin" Text="Dia" />
@@ -18,10 +18,11 @@
 @code {
     DateTime fecha;
     RadzenScheduler<Turno> scheduler;
-    List<Turno> turnos;
     int selectedIndex;
     TimeSpan horaInicio = new TimeSpan(15, 0, 0);
     TimeSpan horaFin = new TimeSpan(22, 0, 0);
+
+    public List<Turno> Turnos { get; private set; } = new();
 
     [Parameter]
     public DateTime? Fecha
@@ -40,12 +41,7 @@
 
         this.selectedIndex = (int)this.Modo;
 
-        this.turnos = (await this.turnosApi.Todos()).ToList();
-
-        foreach(var turno in turnos)
-        {
-            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(turno));
-        }
+        this.Turnos = (await this.turnosApi.Todos()).ToList();
     }
 
     protected override void OnParametersSet()
@@ -60,7 +56,7 @@
     {
         await this.turnosApi.Crear(turno);
 
-        this.turnos.Add(turno);
+        this.Turnos.Add(turno);
 
         await this.scheduler.Reload();
     }
