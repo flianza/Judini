@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Judini.Server.AccesoDatos;
 using Judini.Server.Dominio;
@@ -67,6 +66,9 @@ namespace Judini.Server
             {
                 opt.Filters.Add(typeof(RequestEnableBufferingFilter));
                 opt.Filters.Add(typeof(ExceptionFilter));
+            }).AddJsonOptions(opt => 
+            {
+                opt.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
             services.AddRazorPages();
 
@@ -74,6 +76,8 @@ namespace Judini.Server
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp1", Version = "v1" });
             });
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.Scan(scan =>
             {
@@ -96,19 +100,19 @@ namespace Judini.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
-
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp1 v1");
-                    c.RoutePrefix = "swagger";
-                });
             }
             else
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp1 v1");
+                c.RoutePrefix = "swagger";
+            });
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();

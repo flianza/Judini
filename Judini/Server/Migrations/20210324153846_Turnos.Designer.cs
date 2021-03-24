@@ -3,14 +3,16 @@ using System;
 using Judini.Server.AccesoDatos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Judini.Server.Migrations
 {
     [DbContext(typeof(ContextoBd))]
-    partial class ContextoBdModelSnapshot : ModelSnapshot
+    [Migration("20210324153846_Turnos")]
+    partial class Turnos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

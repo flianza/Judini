@@ -1,8 +1,10 @@
 ﻿@using Judini.Shared.Turnos
 @using Judini.Shared.Enums
 @using Judini.Client.Infraestructura
+@using Judini.Client.Servicios.Turnos.Contratos
 
 @inject IDateProvider dateProvider
+@inject ITurnosApi turnosApi
 
 <RadzenScheduler @ref=@scheduler TItem="Turno"
                  Data=@turnos SelectedIndex="@selectedIndex"
@@ -16,7 +18,7 @@
 @code {
     DateTime fecha;
     RadzenScheduler<Turno> scheduler;
-    List<Turno> turnos = new();
+    List<Turno> turnos;
     int selectedIndex;
     TimeSpan horaInicio = new TimeSpan(15, 0, 0);
     TimeSpan horaFin = new TimeSpan(22, 0, 0);
@@ -32,11 +34,18 @@
     }
     [Parameter] public ModoScheduler Modo { get; set; } = ModoScheduler.Dia;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
 
         this.selectedIndex = (int)this.Modo;
+
+        this.turnos = (await this.turnosApi.Todos()).ToList();
+
+        foreach(var turno in turnos)
+        {
+            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(turno));
+        }
     }
 
     protected override void OnParametersSet()
@@ -49,6 +58,8 @@
 
     public async Task AgregarTurnoAsync(Turno turno)
     {
+        await this.turnosApi.Crear(turno);
+
         this.turnos.Add(turno);
 
         await this.scheduler.Reload();

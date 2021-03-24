@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Judini.Server.AccesoDatos.Mapeos
+namespace Judini.Server.AccesoDatos.Mapeos.Clientes
 {
     public class ClienteMap : IEntityTypeConfiguration<Cliente>
     {

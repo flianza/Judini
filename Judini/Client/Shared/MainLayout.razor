@@ -21,8 +21,9 @@
                 <MudIconButton Icon="@Icons.Material.Filled.PowerSettingsNew" Color="Color.Inherit" Edge="Edge.End" OnClick="@(() => this.CerrarSesion())" />
             </MudAppBar>
             <MudDrawer @bind-Open="menuAbierto" Elevation="2">
-                <MudDrawerHeader>
-                    <MudText Typo="Typo.h5" Class="mt-1">Judini</MudText>
+                <MudDrawerHeader Class="d-flex align-center">
+                    <MudIcon Icon="@CustomIcons.Judini" Color="Color.Primary" Size="Size.Medium" Class="mr-2"></MudIcon>
+                    <MudText Typo="Typo.h5">Judini</MudText>
                 </MudDrawerHeader>
                 <NavMenu></NavMenu>
             </MudDrawer>

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Judini.Server.Dominio;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +23,7 @@ namespace Judini.Server.AccesoDatos
             }
         }
 
-        public IEnumerable<T> All()
+        public IQueryable<T> All()
         {
             return this.contexto.Set<T>();
         }
