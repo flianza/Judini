@@ -12,24 +12,31 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => this.ToggleMenu())" />
-        <MudAppBarSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.PowerSettingsNew" Color="Color.Inherit" Edge="Edge.End" OnClick="@(() => this.CerrarSesion())" />
-    </MudAppBar>
-    <MudDrawer @bind-Open="menuAbierto" Elevation="2">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h5" Class="mt-1">Judini</MudText>
-        </MudDrawerHeader>
-        <NavMenu></NavMenu>
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
-            @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+            <MudAppBar Elevation="1">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => this.ToggleMenu())" />
+                <MudAppBarSpacer />
+                <MudIconButton Icon="@Icons.Material.Filled.PowerSettingsNew" Color="Color.Inherit" Edge="Edge.End" OnClick="@(() => this.CerrarSesion())" />
+            </MudAppBar>
+            <MudDrawer @bind-Open="menuAbierto" Elevation="2">
+                <MudDrawerHeader>
+                    <MudText Typo="Typo.h5" Class="mt-1">Judini</MudText>
+                </MudDrawerHeader>
+                <NavMenu></NavMenu>
+            </MudDrawer>
+            <MudMainContent>
+                <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+                    @Body
+                </MudContainer>
+            </MudMainContent>
+        </MudLayout>
+    </Authorized>
+    <NotAuthorized>
+        <RedirectToLogin />
+    </NotAuthorized>
+</AuthorizeView>
 
 <RadzenDialog></RadzenDialog>
 

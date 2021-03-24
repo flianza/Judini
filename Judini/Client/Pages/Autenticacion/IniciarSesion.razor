@@ -7,41 +7,54 @@
 @inject IdentityAuthenticationStateProvider authStateProvider
 
 <EditForm Model="@this.Modelo" OnValidSubmit="this.OnSubmit">
-    <MudText Typo="Typo.h4" GutterBottom="true">Iniciar Sesion</MudText>
+    <MudGrid>
+        <MudItem xs="12">
+            <div class="d-flex justify-center">
+                <MudIcon Icon="@CustomIcons.Judini" Color="Color.Primary" Size="Size.Large" ViewBox="0 0 500 500" Style="width:100px; height:100px;" />
+            </div>
+        </MudItem>
 
-    <MudTextField @bind-Value="this.Modelo.NombreDeUsuario" 
-                  Label="Usuario" 
-                  Variant="Variant.Outlined" 
-                  Class="my-4" />
+        <DataAnnotationsValidator />
+        <MudItem xs="12">
+            <div class="d-flex justify-center">
+                <MudText Typo="Typo.h4">Judini</MudText>
+            </div>
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField @bind-Value="this.Modelo.NombreDeUsuario"
+                          Label="Usuario"
+                          Variant="Variant.Outlined"
+                          Required="true"
+                          RequiredError="El usuario es requerido">
+            </MudTextField>
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField @bind-Value="@this.Modelo.Contrasenia"
+                          Label="Contraseña"
+                          Variant="Variant.Outlined"
+                          InputType="@TipoInputContrasenia"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@IconoContrasenia"
+                          OnAdornmentClick="ToggleContrasenia"
+                          Required="true"
+                          RequiredError="La contraseña es requerida">
+            </MudTextField>
+        </MudItem>
+        <MudItem xs="12" Class="d-flex justify-center">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Size="Size.Large"
+                       FullWidth="true"
+                       ButtonType="ButtonType.Submit">
+                Iniciar Sesion
+            </MudButton>
+        </MudItem>
 
-    <MudTextField @bind-Value="@this.Modelo.Contrasenia" 
-                  Label="Contraseña" 
-                  Variant="Variant.Outlined" 
-                  InputType="@TipoInputContrasenia" 
-                  Adornment="Adornment.End" 
-                  AdornmentIcon="@IconoContrasenia" 
-                  OnAdornmentClick="ToggleContrasenia" />
-
-    <div Class="d-flex justify-space-between align-center">
-        <MudCheckBox T="bool" 
-                     @bind-Checked="this.Modelo.Recordarme" 
-                     Label="Recordame" 
-                     Color="Color.Primary" 
-                     Class="ml-n1 my-3" />
-    </div>
-
-    <MudButton Variant="Variant.Filled" 
-               Color="Color.Primary" 
-               Size="Size.Large" 
-               FullWidth="true"
-               ButtonType="ButtonType.Submit">
-        Iniciar Sesion
-    </MudButton>
-
-    @if (!string.IsNullOrWhiteSpace(this.ErrorIniciarSesion))
-    {
-        <MudAlert Severity="Severity.Error" Class="mt-8 mud-width-full" Style="max-width:500px;" Elevation="25">@this.ErrorIniciarSesion</MudAlert>
-    }
+        @if (!string.IsNullOrWhiteSpace(this.ErrorIniciarSesion))
+        {
+            <MudAlert Severity="Severity.Error" Class="mt-8 mud-width-full" Style="max-width:500px;" Elevation="25">@this.ErrorIniciarSesion</MudAlert>
+        }
+    </MudGrid>
 </EditForm>
 
 @code{

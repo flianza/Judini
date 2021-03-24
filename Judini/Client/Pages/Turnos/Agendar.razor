@@ -79,8 +79,6 @@
 
     async Task AgregarTurno()
     {
-        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(this.modelo));
-
         await this.scheduler.AgregarTurnoAsync(new Turno
         {
             Inicio = this.modelo.Inicio,
